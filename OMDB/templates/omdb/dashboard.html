@@ -1,0 +1,40 @@
+{% extends "omdb/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <form action="{% url 'search' %}">
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="title" placeholder="title">
+            </div>
+            <div class="col-md-4">
+                <input type="number" class="form-control" name="year" placeholder="year">
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-info btn-block">Search</button>
+            </div>
+
+        </div>
+    </form>
+</div>
+<div class="row">
+    {% for movie in movies %}
+    <div class="col-md-4 mb-4">
+        <div class="card" style="width: 22rem;">
+            <img class="card-img-top  " src="{{movie.Poster}}" alt="Card image cap" height="300px">
+            <div class="card-body">
+                <h5 class="card-title">{{movie.Title}}</h5>
+                <p class="card-text">
+                    Year: {{movie.Year}} <br>
+                    Type: {{movie.Type}} <br>
+                </p>
+                <a href="{% url 'details' movie.imdbID %}" class="btn btn-primary">Details</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+
+{% endblock content %}
